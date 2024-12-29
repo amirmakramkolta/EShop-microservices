@@ -1,3 +1,5 @@
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,11 +18,23 @@ builder.Services.AddMarten(config => {
    }
 );
 
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+});
+
 builder.Services.AddScoped<IBasketIRepository, BasketRepository>();
+builder.Services.Decorate<IBasketIRepository, CachedBasketRepository>();
 
 builder.Services.AddValidatorsFromAssembly(MainAssembly);
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+builder.Services.AddHealthChecks()
+    .AddNpgSql(builder.Configuration.GetConnectionString("Database")!)
+    .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
+
+//builder.Services.AddSwaggerGen();
 
 builder.Services.AddCarter();
 
@@ -30,4 +44,15 @@ app.UseExceptionHandler(options => { });
 
 app.MapCarter();
 
+app.UseHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
+//app.UseSwagger();
+//app.UseSwaggerUI(c =>
+//{
+//    c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1");
+//    c.RoutePrefix = "";
+//});
 app.Run();
