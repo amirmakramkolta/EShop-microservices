@@ -10,7 +10,7 @@
         }
         public IDomainEvent[] ClearDomainEvent()
         {
-            IDomainEvent[] domainEvents = _domainEvents.ToArray();
+            IDomainEvent[] domainEvents = [.. _domainEvents];
             _domainEvents.Clear();
             return domainEvents;
         }
