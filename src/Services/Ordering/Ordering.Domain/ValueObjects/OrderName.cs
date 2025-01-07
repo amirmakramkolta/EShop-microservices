@@ -2,6 +2,14 @@
 {
     public record OrderName
     {
+        private const int DefaultLength = 5;
+        private OrderName(string value) => Value = value;
         public string Value { get; } = default!;
+        public static OrderName Of(string value)
+        {
+            ArgumentException.ThrowIfNullOrWhiteSpace(value);
+            ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(value.Length, DefaultLength);
+            return new OrderName(value);
+        }
     }
 }
