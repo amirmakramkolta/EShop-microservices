@@ -7,8 +7,8 @@ namespace Catalog.API.Data
     {
         public async Task Populate(IDocumentStore store, CancellationToken cancellation)
         {
-            using var session = await store.LightweightSerializableSessionAsync();
-            if(await session.Query<Product>().AnyAsync())
+            using var session = await store.LightweightSerializableSessionAsync(cancellation);
+            if(await session.Query<Product>().AnyAsync(token: cancellation))
                 return;
 
             session.Store<Product>(GetPreproductConfig());
