@@ -14,7 +14,11 @@ namespace Ordering.Infrastructure.Data.Configurations
 
             builder.HasOne<Product>()
                 .WithMany()
-                .HasForeignKey(x => x.ProductId);
+                .HasForeignKey(x => x.ProductId)
+                .IsRequired();
+
+            builder.Property(x => x.Quantity).IsRequired();
+            builder.Property(x=>x.Price).IsRequired();
         }
     }
 }
