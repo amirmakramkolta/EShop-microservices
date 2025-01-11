@@ -11,6 +11,7 @@ namespace Ordering.Domain.Models
             decimal price
             )
         {
+            Id = OrderItemId.Of(Guid.NewGuid());
             OrderId = orderId;
             ProductId = productId;
             Quantity = quantity;
