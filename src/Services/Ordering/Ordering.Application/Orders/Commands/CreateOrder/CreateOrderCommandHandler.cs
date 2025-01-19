@@ -9,7 +9,7 @@
             await dbContext.Orders.AddAsync(NewOrder);
             await dbContext.SaveChangesAsync(cancellationToken);
 
-            return new CreateOrderResult(Guid.NewGuid());
+            return new CreateOrderResult(NewOrder.Id.Value);
         }
 
         private Order CreateOrder(OrderDto orderDto)
