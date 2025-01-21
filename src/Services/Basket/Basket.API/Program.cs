@@ -1,3 +1,4 @@
+using BuildingBlocks.Messaging.MassTrsnsit;
 using Discount.Grpc;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -23,6 +24,8 @@ builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
 });
+
+builder.Services.AddMessageBroker(builder.Configuration);
 
 builder.Services.AddScoped<IBasketIRepository, BasketRepository>();
 builder.Services.Decorate<IBasketIRepository, CachedBasketRepository>();
