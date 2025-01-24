@@ -8,7 +8,7 @@
         {
             app.MapPost("/basket/checkout", async (CheckoutBasketRequest request, ISender sender) =>
             {
-                var command = request.Adapt<CheckoutBasketCommand>();
+                var command = new CheckoutBasketCommand(request.dto);
                 var result = await sender.Send(command);
 
                 var response = result.Adapt<CheckoutBasketResponse>();

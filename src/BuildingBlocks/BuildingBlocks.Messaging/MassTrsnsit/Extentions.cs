@@ -17,11 +17,15 @@ namespace BuildingBlocks.Messaging.MassTrsnsit
 
                 config.UsingRabbitMq((context, configurator) =>
                 {
-                    configurator.Host(new Uri(configuration["MessageBroker:Host"]!), host =>
+                    var host = configuration["MessageBroker:Host"];
+                    var username = configuration["MessageBroker:Username"];
+                    var password = configuration["MessageBroker:Password"];
+                    configurator.Host(new Uri(host!), host =>
                     {
-                        host.Username(configuration["MessageBroker:Username"]!);
-                        host.Password(configuration["MessageBroker:Password"]!);
+                        host.Username(username!);
+                        host.Password(password!);
                     });
+                    configurator.ConfigureEndpoints(context);
                 });
             });
             return services;

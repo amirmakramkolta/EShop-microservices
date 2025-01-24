@@ -29,7 +29,7 @@ namespace Ordering.Application.Orders.EventHandlers.Integration
             var payment = new PaymentDto(message.CardName,
                 message.CardNumber,
                 message.Expiration,
-                message.CVV,
+                message.Cvv,
                 message.PaymentMethod);
 
             var orderId = Guid.NewGuid();
