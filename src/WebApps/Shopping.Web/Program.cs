@@ -5,7 +5,13 @@ builder.Services.AddRazorPages();
 builder.Services.AddRefitClient<ICatalogService>()
     .ConfigureHttpClient(c =>
     {
-        c.BaseAddress = new Uri(builder.Configuration["ApiSetting:GatewayAddress"]);
+        c.BaseAddress = new Uri(builder.Configuration["ApiSetting:GatewayAddress"]!);
+    });
+
+builder.Services.AddRefitClient<IBasketService>()
+    .ConfigureHttpClient(c =>
+    {
+        c.BaseAddress = new Uri(builder.Configuration["ApiSetting:GatewayAddress"]!);
     });
 
 var app = builder.Build();

@@ -25,4 +25,5 @@
 
     public record CheckoutBasketRequest(BasketCheckoutModel dto);
     public record CheckoutBasketResponse(bool IsSuccess);
+    public record DeleteBasketResponse(bool IsSuccess);
 }
