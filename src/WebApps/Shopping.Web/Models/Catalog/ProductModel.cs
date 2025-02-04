@@ -12,6 +12,6 @@
 
     public record GetProductsResponse(IEnumerable<ProductModel> Products);
     public record GetProductsByCategoryResponse(IEnumerable<ProductModel> Products);
-    public record GetProductsByIdResponse(ProductModel Product);
+    public record GetProductByIdResponse(ProductModel Product);
 
 }
